@@ -1,6 +1,6 @@
 const http = require("http");
 const url = require("url");
-const StringDecoder = require("string_decoder");
+const { StringDecoder } = require("string_decoder");
 
 let server = http.createServer((req, res) => {
   let parsedUrl = url.parse(req.url, true);
@@ -17,8 +17,17 @@ let server = http.createServer((req, res) => {
   let headers = req.headers;
   // console.log("headers", headers);
   let decoder = new StringDecoder("utf-8");
+  let buffer = "";
+  req.on("data", data => {
+    buffer += decoder.write(data);
+  });
+  req.on("end", () => {
+    buffer += decoder.end();
+    res.end("hello world\n");
+    console.log("buffer", buffer);
+  });
   console.log(decoder);
-  res.end("hello world\n");
+
   // console.log(`
   //   request received on " ${trimmedPath} " path
   //    with this method "${method}"
