@@ -1,7 +1,5 @@
 # restfulAPI
 
-Building a Restful API which sends sms
-
 Building a Restful API
 
 Backend Spec:
