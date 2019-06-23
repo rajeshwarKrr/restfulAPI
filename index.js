@@ -1,5 +1,6 @@
 const http = require("http");
 const url = require("url");
+const StringDecoder = require("string_decoder");
 
 let server = http.createServer((req, res) => {
   let parsedUrl = url.parse(req.url, true);
@@ -8,13 +9,15 @@ let server = http.createServer((req, res) => {
   // console.log("path", path);
   let trimmedPath = path.replace(/^\/+|\/+$/g, "");
   // console.log("trimmedPath", trimmedPath);
-  console.log(parsedUrl.query);
+  // console.log(parsedUrl.query);
   let queryStringObject = parsedUrl.query;
 
   let method = req.method.toLowerCase();
 
   let headers = req.headers;
-  console.log("headers", headers);
+  // console.log("headers", headers);
+  let decoder = new StringDecoder("utf-8");
+  console.log(decoder);
   res.end("hello world\n");
   // console.log(`
   //   request received on " ${trimmedPath} " path
